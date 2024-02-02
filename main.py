@@ -60,8 +60,8 @@ def disassemble(instructions: [], start_address: int) -> []:
 
 
 def my_test():
-    r = disassemble([0x00A63820, 0x8E870004], 0x9A040)
-    assert (r == ["0x9a040 add $7, $5, $6", "0x9a044 lw $7, 4($20)"])
+    res = disassemble([0x00A63820, 0x8E870004], 0x9A040)
+    assert (res == ["0x9a040 add $7, $5, $6", "0x9a044 lw $7, 4($20)"])
     print("Test Passed")
 
 
