@@ -1,16 +1,10 @@
-r_format_bitmask_dict = {
+bitmask_dict = {
     "op": 0b11111100000000000000000000000000,
     "rs": 0b00000011111000000000000000000000,
     "rt": 0b00000000000111110000000000000000,
     "rd": 0b00000000000000001111100000000000,
     "shamt": 0b00000000000000000000011111000000,
     "funct": 0b00000000000000000000000000111111,
-}
-
-i_format_bitmask_dict = {
-    "op": 0b11111100000000000000000000000000,
-    "rs": 0b00000011111000000000000000000000,
-    "rt": 0b00000000000111110000000000000000,
     "off": 0b00000000000000001111111111111111,
 }
 
@@ -36,11 +30,11 @@ def disassemble(instructions: [], start_address: int) -> []:
         current_address += 4
 
         # Extracting fields from the instruction
-        op: int = (instruction & r_format_bitmask_dict["op"]) >> 32 - 6
-        rs: int = (instruction & r_format_bitmask_dict["rs"]) >> 32 - 11
-        rt: int = (instruction & r_format_bitmask_dict["rt"]) >> 32 - 16
-        rd: int = (instruction & r_format_bitmask_dict["rd"]) >> 32 - 21
-        funct: int = (instruction & r_format_bitmask_dict["funct"])
+        op: int = (instruction & bitmask_dict["op"]) >> 32 - 6
+        rs: int = (instruction & bitmask_dict["rs"]) >> 32 - 11
+        rt: int = (instruction & bitmask_dict["rt"]) >> 32 - 16
+        rd: int = (instruction & bitmask_dict["rd"]) >> 32 - 21
+        funct: int = (instruction & bitmask_dict["funct"])
 
         # R-Format instruction
         if op == 0:
@@ -48,7 +42,7 @@ def disassemble(instructions: [], start_address: int) -> []:
 
         # I-Format instruction
         else:
-            off: int = (instruction & i_format_bitmask_dict["off"])
+            off: int = (instruction & bitmask_dict["off"])
             # Offset is a signed 16-bit integer, this is not natively supported in python
             # Check if the number is negative by checking if the most significant bit is 1
             if off & 0b1000000000000000:
