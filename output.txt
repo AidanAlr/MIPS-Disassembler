@@ -1,5 +1,6 @@
 /usr/local/bin/python3.12 /Users/aidanalrawi/PycharmProjects/MIPS-Disassembler/main.py
 Disassembled 11 instructions :
+
 0x9a040 add $20, $25, $11
 0x9a044 lw $9, 20($7)
 0x9a048 beq $21, $9, address 0x9a058
