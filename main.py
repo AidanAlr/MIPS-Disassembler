@@ -35,24 +35,24 @@ def disassemble(instructions: [], start_address: int) -> []:
     for instruction in instructions:
         current_address += 4
 
+        # Extracting fields from the instruction
         op: int = (instruction & r_format_bitmask_dict["op"]) >> 32 - 6
         rs: int = (instruction & r_format_bitmask_dict["rs"]) >> 32 - 11
         rt: int = (instruction & r_format_bitmask_dict["rt"]) >> 32 - 16
+        rd: int = (instruction & r_format_bitmask_dict["rd"]) >> 32 - 21
+        funct: int = (instruction & r_format_bitmask_dict["funct"])
+        off: int = (instruction & i_format_bitmask_dict["off"])
 
         # R-Format instruction
         if op == 0:
-            rd: int = (instruction & r_format_bitmask_dict["rd"]) >> 32 - 21
-            funct: int = (instruction & r_format_bitmask_dict["funct"])
             assembly_string = f"{hex(current_address)} {funct_dict[funct]} ${rd}, ${rs}, ${rt}"
 
         # I-Format instruction
         else:
-            off: int = (instruction & i_format_bitmask_dict["off"])
             # Offset is a signed 16-bit integer, this is not natively supported in python
             # Check if the number is negative by checking if the most significant bit is 1
             if off & 0b1000000000000000:
                 off -= 0b10000000000000000  # Subtract range of a signed 16-bit integer (2^16) to get the negative val
-
             assembly_string = f"{hex(current_address)} {funct_dict[op]} ${rt}, {off}(${rs})"
 
             # Branch instructions
