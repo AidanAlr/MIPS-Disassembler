@@ -41,16 +41,14 @@ def disassemble(instructions: [], start_address: int) -> []:
         if off & 0b1000000000000000:  # Check if offset is negative by checking if the most significant bit is 1
             off -= 0b10000000000000000  # Subtract range of a signed 16-bit integer (2^16) to get the negative val
 
-        # R-Format instruction
-        if op == 0:
+        if op == 0:  # R-Format instruction
             assembly_string = f"{hex(current_address)} {funct_dict[funct]} ${rd}, ${rs}, ${rt}"
 
-        # I-Format instruction
-        else:
+        else:  # I-Format instruction
+            # load and store instructions
             assembly_string = f"{hex(current_address)} {funct_dict[op]} ${rt}, {off}(${rs})"
 
-            # Branch instructions
-            if funct_dict[op] in ["beq", "bne"]:
+            if funct_dict[op] in ["beq", "bne"]:  # Branch instructions
                 # Calculate target address, add 4 since instructions are relative to next instruction and *4 to
                 # covert from word offset to byte offset
                 target = current_address + 4 + (off * 4)
@@ -76,5 +74,6 @@ if __name__ == "__main__":
 
     print("Disassembled " + str(len(project_instructions)) + " instructions :")
     print()
-    for i in disassemble(project_instructions, project_start_address):
-        print(i)
+    result: [] = disassemble(project_instructions, project_start_address)
+    for r in result:
+        print(r)
