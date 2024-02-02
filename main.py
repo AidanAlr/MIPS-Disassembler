@@ -71,9 +71,8 @@ if __name__ == "__main__":
     project_start_address = 0x9A040
     project_instructions = [0x032BA020, 0x8CE90014, 0x12A90003, 0x022DA822, 0xADB30020, 0x02697824, 0xAE8FFFF4,
                             0x018C6020, 0x02A4A825, 0x158FFFF7, 0x8ECDFFF0]
+    result: [] = disassemble(project_instructions, project_start_address)
 
     print("Disassembled " + str(len(project_instructions)) + " instructions :")
-    print()
-    result: [] = disassemble(project_instructions, project_start_address)
     for r in result:
         print(r)
