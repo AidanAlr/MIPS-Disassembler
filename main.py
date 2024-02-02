@@ -28,7 +28,7 @@ funct_dict = {
 }
 
 
-def disassemble(instructions: [], start_address: int):
+def disassemble(instructions: [], start_address: int) -> []:
     result = []
     current_address = start_address - 4  # Adjusting for incrementing at the start of the loop
 
