@@ -41,13 +41,10 @@ def disassemble(instructions: [], start_address: int) -> []:
         rs: int = (instruction & bitmask_dict["rs"]) >> bitshift_dict["rs"]
         rt: int = (instruction & bitmask_dict["rt"]) >> bitshift_dict["rt"]
         rd: int = (instruction & bitmask_dict["rd"]) >> bitshift_dict["rd"]
-
         # funct and offset do not need to be shifted
         funct: int = (instruction & bitmask_dict["funct"])
-
         # Offset is a signed 16-bit integer, this is not natively supported in python
         off: int = (instruction & bitmask_dict["off"])
-        
         if off & 0b1000000000000000:  # Check if offset is negative by checking if the most significant bit is 1
             off -= 0b10000000000000000  # Subtract range of a signed 16-bit integer (2^16) to get the negative val
 
