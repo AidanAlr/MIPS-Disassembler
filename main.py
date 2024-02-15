@@ -21,6 +21,13 @@ funct_dict = {
     0b000101: "bne",
 }
 
+bitshift_dict = {
+    "op": 26,
+    "rs": 21,
+    "rt": 16,
+    "rd": 11
+}
+
 
 def disassemble(instructions: [], start_address: int) -> []:
     result = []
@@ -30,10 +37,10 @@ def disassemble(instructions: [], start_address: int) -> []:
         current_address += 4
 
         # Extracting fields from the instruction
-        op: int = (instruction & bitmask_dict["op"]) >> 32 - 6
-        rs: int = (instruction & bitmask_dict["rs"]) >> 32 - 11
-        rt: int = (instruction & bitmask_dict["rt"]) >> 32 - 16
-        rd: int = (instruction & bitmask_dict["rd"]) >> 32 - 21
+        op: int = (instruction & bitmask_dict["op"]) >> bitshift_dict["op"]
+        rs: int = (instruction & bitmask_dict["rs"]) >> bitshift_dict["rs"]
+        rt: int = (instruction & bitmask_dict["rt"]) >> bitshift_dict["rt"]
+        rd: int = (instruction & bitmask_dict["rd"]) >> bitshift_dict["rd"]
 
         # funct and offset do not need to be shifted
         funct: int = (instruction & bitmask_dict["funct"])
